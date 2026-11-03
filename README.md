@@ -6,9 +6,7 @@ A beginner-friendly Python console program created during the Python lecture on 
 
 `python-conditionals-smart-canteen`
 
-## Class Demonstration
-
-The class used a canteen bill to explain how conditions choose one outcome from several possible outcomes.
+## Discount Rules
 
 | Bill Amount | Standard Discount |
 |---|---:|
@@ -17,7 +15,15 @@ The class used a canteen bill to explain how conditions choose one outcome from 
 | Rs. 1,000 to below Rs. 2,000 | 5% |
 | Below Rs. 1,000 | 0% |
 
-The program then displays the original bill, discount amounts, total savings, and final payable amount.
+Members receive an **additional 5% discount** on the amount left after the standard discount.
+
+## Program Features
+
+The program starts with the basic canteen discount rules and adds three small features:
+
+1. **Bill validation** — if the bill is zero or negative, a message is shown and the user is asked to enter the amount again. This uses a simple `while` loop.
+2. **Membership discount** — if the student answers `yes` to having a membership card, an extra 5% discount is applied after the standard discount.
+3. **Savings message** — when the student receives any discount, the program prints `Congratulations! You saved Rs. X`.
 
 ## Concepts Covered
 
@@ -25,22 +31,24 @@ The program then displays the original bill, discount amounts, total savings, an
 - `elif`: checks another condition when earlier conditions were false.
 - `else`: handles the remaining case when no previous condition matched.
 - Comparison operators such as `>=` and `<=`.
+- Logical thinking about mutually exclusive conditions.
 - Input using `input()` and numeric conversion using `float()`.
-- Input validation and `try/except` for non-numeric values.
+- A `while` loop that repeats until a valid bill amount is entered.
 - Calculations with percentages.
 - String formatting using f-strings and `:.2f`.
-- Membership checks and combined bill calculations.
+- A simple yes/no check with `if` and `else`.
 
-## Program Enhancements
+## Discount Calculation
 
-The lecture's student challenge is included in this version:
+The membership discount is calculated **after** the standard discount.
 
-1. Reject bill amounts that are zero or negative.
-2. Ask whether the student has a membership card.
-3. Apply an additional 5% membership discount to the amount remaining after the standard discount.
-4. Show total savings and a congratulatory message when a discount is applied.
+For a Rs. 3,000 bill with a membership card:
 
-**Discount calculation note:** The membership discount is calculated after the standard discount. For example, if the bill is Rs. 3,000, the standard discount is Rs. 600. A member then receives 5% of the remaining Rs. 2,400 (Rs. 120), making total savings Rs. 720 and the final bill Rs. 2,280.
+1. Standard discount (20%): Rs. 600.00
+2. Amount remaining: Rs. 2,400.00
+3. Membership discount (5% of Rs. 2,400): Rs. 120.00
+4. Total savings: Rs. 720.00
+5. Final payable amount: Rs. 2,280.00
 
 ## How to Run
 
@@ -58,49 +66,69 @@ On some systems, use `python3` instead of `python`.
 ## Example Run
 
 ```text
-================================
-       SMART CANTEEN
-================================
+===== SMART CANTEEN =====
 Enter your total bill amount (Rs.): 3000
 Do you have a membership card? (yes/no): yes
 
-================================
-         BILL SUMMARY
-================================
-Original Bill:                 Rs. 3000.00
-Standard Discount (20%):       Rs. 600.00
-Membership Discount:           Rs. 120.00
-Total Savings:                 Rs. 720.00
-Final Payable Amount:          Rs. 2280.00
-Congratulations! You saved Rs. 720.00.
+===== BILL SUMMARY =====
+Original Bill: Rs. 3000.00
+Discount Rate: 20%
+Discount Amount: Rs. 600.00
+Membership Discount (5%): Rs. 120.00
+Total Savings: Rs. 720.00
+Final Payable: Rs. 2280.00
+Congratulations! You saved Rs. 720.00
 ```
+
+## Invalid Bill Example
+
+Zero and negative amounts are rejected, and the prompt repeats:
+
+```text
+===== SMART CANTEEN =====
+Enter your total bill amount (Rs.): 0
+Invalid bill amount. Please enter an amount greater than zero.
+Enter your total bill amount (Rs.): -500
+Invalid bill amount. Please enter an amount greater than zero.
+Enter your total bill amount (Rs.): 1500
+```
+
+The program expects a number for the bill amount. Handling text input would need `try`/`except`, which is a later topic.
 
 ## UI/UX Notes
 
 This is a **console-based** program, not a graphical web interface. Its basic user-experience choices are:
 
 - A clear title and section separators.
-- A direct prompt that tells the user what to enter.
+- Direct prompts that tell the user what to enter.
+- A friendly message for an invalid bill instead of stopping silently.
 - Currency labels (`Rs.`) and two decimal places for money.
-- A readable bill summary with discounts shown separately.
-- Friendly success and validation messages.
+- A readable bill summary that shows the standard discount and membership discount separately.
+- A positive message when the student saves money.
 
-These choices make the output easier for a beginner to follow. A future extension could add a graphical interface or web page, but that is outside the scope of this Python conditionals exercise.
+A future extension could add a graphical interface or web page, but that is outside the scope of this Python conditionals exercise.
+
+## Teaching Note: Why `elif` Instead of Several `if` Statements?
+
+`elif` is used because the discount tiers are **mutually exclusive**: a bill can only belong to one tier. When a condition matches, Python skips the rest of the chain, so the program cannot accidentally apply two standard discounts. Several independent `if` statements would run every check and would need extra care to avoid overlapping discounts.
 
 ## Practice Challenges
 
-1. Add a rule that rejects membership answers other than `yes` or `no`.
-2. Add a student category (e.g., regular student or staff) and introduce a new condition.
-3. Add a maximum discount limit.
-4. Print which standard discount tier was selected.
-5. Explain why `elif` is suitable here instead of several independent `if` statements.
+The original student challenges are now included. Further practice ideas:
+
+1. Add a student category (e.g., student, staff, guest) with different discount rules.
+2. Add a maximum discount limit.
+3. Ask again if the membership answer is not `yes` or `no`.
+4. Use a loop to calculate more than one bill without restarting the program.
+5. Build an itemised order (several items and quantities) and calculate the bill from that list.
+6. Print a receipt and save it to a text file.
 
 ## Suggested Git Commit
 
 ```text
-Add Python conditionals smart canteen discount example
+Add validation, membership discount, and savings message to Smart Canteen
 ```
 
 ## Suggested Repository Description
 
-Beginner Python lesson demonstrating if, elif, else, comparison operators, input validation, and a real-world canteen discount calculator.
+Beginner Python lesson demonstrating if, elif, else, loops, and a real-world canteen discount calculator.
